@@ -15,27 +15,7 @@ builds:
       - arm64
     ldflags:
       - -s -w -X cmd.version={{.Version}}
-dockers:
-  - image_templates:
-      - "ghcr.io/goreleaser/go-discogs:{{ .Version }}"
-      - "state303/go-discogs:latest"
-      - "state303/go-discogs:{{ .Tag }}"
-      - "state303/go-discogs:v{{ .Major }}"
-      - "state303/go-discogs:v{{ .Major }}.{{ .Minor }}"
-    dockerfile: Dockerfile
-    goos: linux
-    goarch: amd64
-    build_flag_templates:
-      - --label=org.opencontainers.image.title={{ .ProjectName }}
-      - --label=org.opencontainers.image.description={{ .ProjectName }}
-      - --label=org.opencontainers.image.url=https://github.com/state303/go-discogs
-      - --label=org.opencontainers.image.source=https://github.com/state303/go-discogs
-      - --label=org.opencontainers.image.version={{ .Version }}
-      - --label=org.opencontainers.image.created={{ .Date }}
-      - --label=org.opencontainers.image.revision={{ .FullCommit }}
-      - --label=org.opencontainers.image.licenses=MIT
-      - --platform=linux/amd64
-
+      
 archives:
   - format: tar.gz
     replacements:
