@@ -28,6 +28,7 @@ type TokenParseOrder interface {
 	Match(token xml.Token) bool
 }
 
+// SimpleTokenOrder returns TokenParseOrder implementation that matches specific localName of the token from XML stream.
 func SimpleTokenOrder(source io.ReadCloser, localName string) TokenParseOrder {
 	return &closeDecoderWrapper{xml.NewDecoder(source), source, NewStartTokenNameMatcher(localName)}
 }
