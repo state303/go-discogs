@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c613a3b-3238-414d-a273-11fe834dc3f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/pr-labeler.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.github/workflows/pr-labeler.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.github/workflows/pr-open-check.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.releaserc.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/testutils/testcontainer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/testutils/testcontainer.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,13 +88,14 @@
       <recent name="$PROJECT_DIR$/src/reader" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.root_test.go">
-    <configuration name="go build github.com/state303/go-discogs/src/batch" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Build.go build testcontainer.go">
+    <configuration name="go build testcontainer.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="go-discogs" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/state303/go-discogs/src/batch" />
+      <kind value="FILE" />
+      <package value="github.com/state303/go-discogs" />
       <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/internal/testutils/testcontainer.go" />
       <method v="2" />
     </configuration>
     <configuration name="go test batch" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -146,7 +143,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Build.go build github.com/state303/go-discogs/src/batch" />
+      <item itemvalue="Go Build.go build testcontainer.go" />
       <item itemvalue="Go Test.root_test.go" />
       <item itemvalue="Go Test.types_test.go" />
       <item itemvalue="Go Test.go test batch" />
@@ -154,11 +151,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build testcontainer.go" />
         <item itemvalue="Go Test.root_test.go" />
         <item itemvalue="Go Test.validation_test.go" />
         <item itemvalue="Go Test.types_test.go" />
         <item itemvalue="Go Test.go test batch" />
-        <item itemvalue="Go Build.go build github.com/state303/go-discogs/src/batch" />
       </list>
     </recent_temporary>
   </component>
