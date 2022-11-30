@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/state303/go-discogs/compare/v1.0.0...v1.0.1) (2022-11-30)
+
+
+### Bug Fixes
+
+* removes line where genre being printed from release step ([149731b](https://github.com/state303/go-discogs/commit/149731b71beff925592d9b0e053a1b022d4dafb9))
+
 # 1.0.0 (2022-11-30)
 
 
