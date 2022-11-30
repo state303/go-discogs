@@ -54,7 +54,6 @@ jobs:
         run: go get ./...
       - name: 📝 Check code style
         run: gofmt -d -s -w .
-      - run: |
-          npx -p @semantic-release/changelog -p @semantic-release/exec -p @semantic-release/git semantic-release
+      - run: npx -p @semantic-release/changelog -p @semantic-release/exec -p @semantic-release/git semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
