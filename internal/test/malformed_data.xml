@@ -1,0 +1,224 @@
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <Name>discogs-data-dumps</Name>
+    <Prefix>data/</Prefix>
+    <Marker/>
+    <MaxKeys>1000</MaxKeys>
+    <IsTruncated>false</IsTruncated>
+    <Contents>
+        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag
+        <Prefix>data/</Prefix>
+        <Marker/>
+        <MaxKeys>1000</MaxKeys>
+        <IsTruncated>false</IsTruncated>
+        <Contents>
+            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag
+            <Prefix>data/</Prefix>
+            <Marker/>
+            <MaxKeys>1000</MaxKeys>
+            <IsTruncated>false</IsTruncated>
+            <Contents>
+                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                <Marker/>
+                <MaxKeys>1000</MaxKeys>
+                <IsTruncated>false</IsTruncated>
+                <Contents>
+                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                    <Marker/>
+                    <MaxKeys>1000</MaxKeys>
+                    <IsTruncated>false</IsTruncated>
+                    <Contents>
+                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag
+
+                        <Prefix>data/</Prefix>
+                        <Marker/>
+                        <MaxKeys>1000</MaxKeys>
+                        <IsTruncated>false</IsTruncated>
+                        <Contents>
+                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                            <Marker/>
+                            <MaxKeys>1000</MaxKeys>
+                            <IsTruncated>false</IsTruncated>
+                            <Contents>
+                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                <Marker/>
+                                <MaxKeys>1000</MaxKeys>
+                                <IsTruncated>false</IsTruncated>
+                                <Contents>
+                                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                    <Marker/>
+                                    <MaxKeys>1000</MaxKeys>
+                                    <IsTruncated>false</IsTruncated>
+                                    <Contents>
+                                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                        <Marker/>
+                                        <MaxKeys>1000</MaxKeys>
+                                        <IsTruncated>false</IsTruncated>
+                                        <Contents>
+                                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                            <Marker/>
+                                            <MaxKeys>1000</MaxKeys>
+                                            <IsTruncated>false</IsTruncated>
+                                            <Contents>
+                                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                <Marker/>
+                                                <MaxKeys>1000</MaxKeys>
+                                                <IsTruncated>false</IsTruncated>
+                                                <Contents>
+                                                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                    <Marker/>
+                                                    <MaxKeys>1000</MaxKeys>
+                                                    <IsTruncated>false</IsTruncated>
+                                                    <Contents>
+                                                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                        <Marker/>
+                                                        <MaxKeys>1000</MaxKeys>
+                                                        <IsTruncated>false</IsTruncated>
+                                                        <Contents>
+                                                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                            <Marker/>
+                                                            <MaxKeys>1000</MaxKeys>
+                                                            <IsTruncated>false</IsTruncated>
+                                                            <Contents>
+                                                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                <Marker/>
+                                                                <MaxKeys>1000</MaxKeys>
+                                                                <IsTruncated>false</IsTruncated>
+                                                                <Contents>
+                                                                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                    <Marker/>
+                                                                    <MaxKeys>1000</MaxKeys>
+                                                                    <IsTruncated>false</IsTruncated>
+                                                                    <Contents>
+                                                                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                        <Marker/>
+                                                                        <MaxKeys>1000</MaxKeys>
+                                                                        <IsTruncated>false</IsTruncated>
+                                                                        <Contents>
+                                                                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                            <Marker/>
+                                                                            <MaxKeys>1000</MaxKeys>
+                                                                            <IsTruncated>false</IsTruncated>
+                                                                            <Contents>
+                                                                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                <Marker/>
+                                                                                <MaxKeys>1000</MaxKeys>
+                                                                                <IsTruncated>false</IsTruncated>
+                                                                                <Contents>
+                                                                                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                    <Marker/>
+                                                                                    <MaxKeys>1000</MaxKeys>
+                                                                                    <IsTruncated>false</IsTruncated>
+                                                                                    <Contents>
+                                                                                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                        <Marker/>
+                                                                                        <MaxKeys>1000</MaxKeys>
+                                                                                        <IsTruncated>false</IsTruncated>
+                                                                                        <Contents>
+                                                                                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                            <Marker/>
+                                                                                            <MaxKeys>1000</MaxKeys>
+                                                                                            <IsTruncated>false</IsTruncated>
+                                                                                            <Contents>
+                                                                                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                <Marker/>
+                                                                                                <MaxKeys>1000</MaxKeys>
+                                                                                                <IsTruncated>false</IsTruncated>
+                                                                                                <Contents>
+                                                                                                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                    <Marker/>
+                                                                                                    <MaxKeys>1000</MaxKeys>
+                                                                                                    <IsTruncated>false</IsTruncated>
+                                                                                                    <Contents>
+                                                                                                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                        <Marker/>
+                                                                                                        <MaxKeys>1000</MaxKeys>
+                                                                                                        <IsTruncated>false</IsTruncated>
+                                                                                                        <Contents>
+                                                                                                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                            <Marker/>
+                                                                                                            <MaxKeys>1000</MaxKeys>
+                                                                                                            <IsTruncated>false</IsTruncated>
+                                                                                                            <Contents>
+                                                                                                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                                <Marker/>
+                                                                                                                <MaxKeys>1000</MaxKeys>
+                                                                                                                <IsTruncated>false</IsTruncated>
+                                                                                                                <Contents>
+                                                                                                                    <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                                    <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                                    <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                                    <Marker/>
+                                                                                                                    <MaxKeys>1000</MaxKeys>
+                                                                                                                    <IsTruncated>false</IsTruncated>
+                                                                                                                    <Contents>
+                                                                                                                        <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                                        <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                                        <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                                        <Marker/>
+                                                                                                                        <MaxKeys>1000</MaxKeys>
+                                                                                                                        <IsTruncated>false</IsTruncated>
+                                                                                                                        <Contents>
+                                                                                                                            <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                                            <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                                            <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag    <Prefix>data/</Prefix>
+                                                                                                                            <Marker/>
+                                                                                                                            <MaxKeys>1000</MaxKeys>
+                                                                                                                            <IsTruncated>false</IsTruncated>
+                                                                                                                            <Contents>
+                                                                                                                                <Key>data/2008/discogs_20080309_CHECKSUM.txt</Key>
+                                                                                                                                <LastModified>2022-06-07T21:47:26.000Z</LastModified>
+                                                                                                                                <ETag>"04c1c8e0b24d52f8c22bb7dd195b54c9"</ETag
