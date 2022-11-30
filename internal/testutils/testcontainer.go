@@ -6,6 +6,7 @@ import (
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 	"strconv"
+	"time"
 )
 
 type DatabaseType int
@@ -63,7 +64,7 @@ func setupMySQL() Database {
 			"MYSQL_DATABASE":      "test_db",
 		},
 		ExposedPorts: []string{"3306/tcp", "33060/tcp"},
-		WaitingFor:   wait.ForListeningPort("3306/tcp"),
+		WaitingFor:   wait.ForHealthCheck().WithPollInterval(time.Second),
 	}
 	c, err := testcontainers.GenericContainer(context.Background(), testcontainers.GenericContainerRequest{
 		ContainerRequest: req,
@@ -106,7 +107,7 @@ func setupPostgres() Database {
 			Target:   testcontainers.ContainerMountTarget(mountTo),
 			ReadOnly: false,
 		}),
-		WaitingFor: wait.ForListeningPort("5432"),
+		WaitingFor: wait.ForHealthCheck().WithPollInterval(time.Second),
 	}
 	dbContainer, err := testcontainers.GenericContainer(
 		context.Background(),
