@@ -12,7 +12,7 @@ import (
 // TODO: double check ptr exceptions on reference
 
 // GetReleaseStep returns a set of steps in a form of composite notary.
-// This is a convenient func such that reduces code and adds syntactic suger, but nothing more.
+// This is a convenient func such that reduces code and adds syntactic sugar, but nothing more.
 func GetReleaseStep(order Order) Step {
 	return func() result.Result {
 		updated := 0

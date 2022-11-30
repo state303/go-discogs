@@ -1,7 +1,6 @@
 package batch
 
 import (
-	"fmt"
 	"github.com/reactivex/rxgo/v2"
 	"github.com/state303/go-discogs/model"
 	"github.com/state303/go-discogs/src/dateparser"
@@ -444,7 +443,6 @@ func (r *XmlReleaseRelation) GetReleaseGenres() []*model.ReleaseGenre {
 		if genreID, ok := GenreCache.Load(genre); ok {
 			rg := &model.ReleaseGenre{ReleaseID: r.ID, GenreID: genreID.(int32)}
 			filteredReleaseGenres = append(filteredReleaseGenres, rg)
-			fmt.Println(genre, rg.GenreID)
 		}
 	}
 	return filteredReleaseGenres
