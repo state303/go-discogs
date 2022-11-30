@@ -17,6 +17,8 @@ const (
 	SQLServer
 )
 
+const postgresWaitLog = `database system is ready to accept connections`
+
 type Database struct {
 	Username  string
 	Password  string
@@ -107,7 +109,11 @@ func setupPostgres() Database {
 			Target:   testcontainers.ContainerMountTarget(mountTo),
 			ReadOnly: false,
 		}),
-		WaitingFor: wait.ForHealthCheck().WithPollInterval(time.Second),
+		WaitingFor: wait.ForAll(
+			wait.ForLog(postgresWaitLog),
+			wait.ForExposedPort().WithStartupTimeout(time.Second*180),
+			wait.ForListeningPort("5432/tcp").WithStartupTimeout(10*time.Second),
+		).WithStartupTimeout(time.Second * 120),
 	}
 	dbContainer, err := testcontainers.GenericContainer(
 		context.Background(),
