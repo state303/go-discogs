@@ -41,17 +41,19 @@ func TestBatch(t *testing.T) {
 	var masters []*model.Master
 	db.Session(&gorm.Session{}).Find(&masters)
 	require.NotEmpty(t, masters)
+
 	for _, master := range masters {
 		var count int64
 		db.Session(&gorm.Session{}).Model(&model.MasterStyle{}).Where("master_id = ?", master.ID).Count(&count)
 		require.NotZero(t, count)
-		db.Session(&gorm.Session{}).Model(&model.MasterGenre{}).Where("master_id = ?", master.ID)
+		db.Session(&gorm.Session{}).Model(&model.MasterGenre{}).Where("master_id = ?", master.ID).Count(&count)
 		require.NotZero(t, count)
 	}
 
 	order = NewOrder(ctx, chunk, "testdata/release.xml.gz", db)
 	res = newBatch().UpdateRelease(order)()
 	require.NoError(t, res.Err())
+
 	var count int64
 	db.Session(&gorm.Session{}).Model(&model.Release{}).Count(&count)
 	require.NotZero(t, count)
@@ -75,8 +77,6 @@ func TestBatch(t *testing.T) {
 	require.NotZero(t, count)
 	db.Session(&gorm.Session{}).Model(&model.ReleaseStyle{}).Count(&count)
 	require.NotZero(t, count)
-	db.Session(&gorm.Session{}).Model(&model.MasterMainRelease{}).Count(&count)
-	require.NotZero(t, count)
 }
 
 func Test_batch_UpdateLabel(t *testing.T) {
@@ -86,13 +86,11 @@ func Test_batch_UpdateLabel(t *testing.T) {
 	type args struct {
 		order Order
 	}
-	tests := []struct {
+	var tests []struct {
 		name   string
 		fields fields
 		args   args
 		want   Step
-	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -111,13 +109,11 @@ func Test_batch_UpdateMaster(t *testing.T) {
 	type args struct {
 		order Order
 	}
-	tests := []struct {
+	var tests []struct {
 		name   string
 		fields fields
 		args   args
 		want   Step
-	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -136,13 +132,11 @@ func Test_batch_UpdateRelease(t *testing.T) {
 	type args struct {
 		order Order
 	}
-	tests := []struct {
+	var tests []struct {
 		name   string
 		fields fields
 		args   args
 		want   Step
-	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

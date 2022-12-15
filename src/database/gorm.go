@@ -74,7 +74,7 @@ func GetConnect(dsn string) (*gorm.DB, error) {
 			SlowThreshold:             time.Second,
 			Colorful:                  true,
 			IgnoreRecordNotFoundError: false,
-			LogLevel:                  logger.Silent,
+			LogLevel:                  logger.Error,
 		})
 
 	return gorm.Open(dl, &gorm.Config{Logger: newLogger})

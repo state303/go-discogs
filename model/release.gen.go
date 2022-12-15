@@ -16,6 +16,7 @@ type Release struct {
 	ReleasedMonth     *int16  `gorm:"column:released_month;type:smallint" json:"released_month"`
 	ReleasedDay       *int16  `gorm:"column:released_day;type:smallint" json:"released_day"`
 	ListedReleaseDate *string `gorm:"column:listed_release_date;type:character varying(255)" json:"listed_release_date"`
+	MasterID          *int32  `gorm:"column:master_id;type:integer" json:"master_id"`
 	IsMaster          *bool   `gorm:"column:is_master;type:boolean" json:"is_master"`
 	Notes             *string `gorm:"column:notes;type:text" json:"notes"`
 	Status            *string `gorm:"column:status;type:character varying(255)" json:"status"`

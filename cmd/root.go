@@ -13,7 +13,7 @@ import (
 	"github.com/knadh/koanf/providers/rawbytes"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"github.com/state303/go-discogs/src/discogs"
+	"github.com/state303/go-discogs/src/batch"
 	"os"
 	"strings"
 	"time"
@@ -48,8 +48,7 @@ Currently supports databases: PostgresQL, MySQL.`,
 		RunE: getMainFunc(),
 	}
 	f := rootCmd.Flags()
-	timeStr := time.Now().Format("20060102")
-	y, m := timeStr[:4], timeStr[4:6]
+	y, m := time.Now().Format("2006"), time.Now().Format("01")
 	home := getHomeDir(new(homeDirSupplier))
 	home += sep + "go-discogs"
 	f.BoolP("new", "n", false, "generates tables before batch")
@@ -75,7 +74,7 @@ var getMainFunc = func() func(cmd *cobra.Command, args []string) error {
 		if err := new(validator).Validate(conf); err != nil {
 			return err
 		}
-		return new(discogs.Discogs).Run(context.Background(), conf)
+		return new(batch.Runner).Run(context.Background(), conf)
 	}
 }
 

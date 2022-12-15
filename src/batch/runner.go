@@ -1,20 +1,17 @@
-package discogs
+package batch
 
 import (
 	"context"
 	"fmt"
 	"github.com/knadh/koanf"
-	"github.com/state303/go-discogs/src/batch"
 	"github.com/state303/go-discogs/src/data"
 	"github.com/state303/go-discogs/src/database"
 	"time"
 )
 
-// Discogs will be removed after refactor.
-// Currently serves as an entrypoint of batch process.
-type Discogs struct{}
+type Runner struct{}
 
-func (*Discogs) Run(ctx context.Context, config *koanf.Koanf) error {
+func (*Runner) Run(ctx context.Context, config *koanf.Koanf) error {
 	begin := time.Now()
 	if err := database.Connect(config.String("dsn")); err != nil {
 		return err
@@ -44,30 +41,30 @@ func (*Discogs) Run(ctx context.Context, config *koanf.Koanf) error {
 	}
 
 	var (
-		b            = batch.New()
+		b            = New()
 		totalUpdates = 0
 		chunk        = config.Int("chunk")
 		db           = database.DB
-		steps        = make([]batch.Step, 0)
+		steps        = make([]Step, 0)
 	)
 
 	if hasArtist(config) {
-		order := batch.NewOrder(ctx, chunk, typeResourceMap["artists"], db)
+		order := NewOrder(ctx, chunk, typeResourceMap["artists"], db)
 		steps = append(steps, b.UpdateArtist(order))
 	}
 
 	if hasLabel(config) {
-		order := batch.NewOrder(ctx, chunk, typeResourceMap["labels"], db)
+		order := NewOrder(ctx, chunk, typeResourceMap["labels"], db)
 		steps = append(steps, b.UpdateLabel(order))
 	}
 
 	if hasMaster(config) {
-		order := batch.NewOrder(ctx, chunk, typeResourceMap["masters"], db)
+		order := NewOrder(ctx, chunk, typeResourceMap["masters"], db)
 		steps = append(steps, b.UpdateMaster(order))
 	}
 
 	if hasRelease(config) {
-		order := batch.NewOrder(ctx, chunk, typeResourceMap["releases"], db)
+		order := NewOrder(ctx, chunk, typeResourceMap["releases"], db)
 		steps = append(steps, b.UpdateRelease(order))
 	}
 

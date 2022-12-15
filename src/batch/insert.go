@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/reactivex/rxgo/v2"
 	"github.com/state303/go-discogs/model"
+	"github.com/state303/go-discogs/src/cache"
 	"github.com/state303/go-discogs/src/helper"
 	"github.com/state303/go-discogs/src/reader"
 	"github.com/state303/go-discogs/src/result"
@@ -33,11 +34,11 @@ func registerCache(_ context.Context, i interface{}) (interface{}, error) {
 	}
 	switch o := i.(type) {
 	case *model.Artist:
-		ArtistIDCache.Store(o.ID, struct{}{})
+		cache.ArtistIDCache.Store(o.ID, struct{}{})
 	case *model.Label:
-		LabelIDCache.Store(o.ID, struct{}{})
+		cache.LabelIDCache.Store(o.ID, struct{}{})
 	case *model.Master:
-		MasterIDCache.Store(o.ID, struct{}{})
+		cache.MasterIDCache.Store(o.ID, struct{}{})
 	}
 	return i, nil
 }

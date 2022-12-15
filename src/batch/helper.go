@@ -1,4 +1,4 @@
-package discogs
+package batch
 
 import "github.com/knadh/koanf"
 

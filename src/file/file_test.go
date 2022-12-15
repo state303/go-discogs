@@ -367,8 +367,7 @@ type testFileReader struct {
 }
 
 func (t testFileReader) Exists(path string) (bool, error) {
-	//TODO implement me
-	panic("implement me")
+	panic("no-op")
 }
 
 func (t testFileReader) ReadFile(path string) ([]byte, error) {

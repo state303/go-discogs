@@ -1,4 +1,4 @@
-package discogs
+package batch
 
 import (
 	"github.com/state303/go-discogs/src/database"

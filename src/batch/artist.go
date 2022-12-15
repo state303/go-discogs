@@ -21,13 +21,11 @@ func GetArtistStep(order Order) Step {
 		if res.IsErr() {
 			return result.NewResult(updated, res.Err())
 		}
-
 		res = insertArtistRelations(order)
 		updated += res.Count()
 		if res.IsErr() {
 			return result.NewResult(updated, res.Err())
 		}
-
 		return result.NewResult(updated, nil)
 	}
 }

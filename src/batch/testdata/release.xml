@@ -152,7 +152,6 @@
     </artists>
     <title>Knockin' Boots (Vol 2 Of 2)</title>
     <labels>
-      <label name="Svek" catno="SK 026" id="2"/>
       <label name="Svek" catno="SK026" id="2"/>
     </labels>
     <extraartists>
@@ -185,7 +184,7 @@
     <released>1998-06-00</released>
     <notes>All joints recorded in NYC (Dec.97).</notes>
     <data_quality>Needs Vote</data_quality>
-    <master_id is_main_release="true">713738</master_id>
+    <master_id is_main_release="true">2</master_id>
     <tracklist>
       <track>
         <position>A1</position>

@@ -3,8 +3,10 @@ package batch
 import (
 	"github.com/reactivex/rxgo/v2"
 	"github.com/state303/go-discogs/model"
+	"github.com/state303/go-discogs/src/cache"
 	"github.com/state303/go-discogs/src/dateparser"
 	"github.com/state303/go-discogs/src/helper"
+	"github.com/state303/go-discogs/src/unique"
 	"strconv"
 	"strings"
 )
@@ -45,7 +47,7 @@ func (a *XmlArtistRelation) GetUrls() []*model.ArtistURL {
 	for _, url := range a.Urls {
 		slice = append(slice, &model.ArtistURL{ArtistID: a.ID, URLHash: int64(helper.Fnv32Str(url)), URL: url})
 	}
-	return slice
+	return unique.Slice(slice)
 }
 
 func (a *XmlArtistRelation) GetNameVars() []*model.ArtistNameVariation {
@@ -53,27 +55,27 @@ func (a *XmlArtistRelation) GetNameVars() []*model.ArtistNameVariation {
 	for _, nameVar := range a.NameVars {
 		slice = append(slice, &model.ArtistNameVariation{ArtistID: a.ID, NameVariation: nameVar, NameVariationHash: int64(helper.Fnv32Str(nameVar))})
 	}
-	return slice
+	return unique.Slice(slice)
 }
 
 func (a *XmlArtistRelation) GetAliases() []*model.ArtistAlias {
 	slice := make([]*model.ArtistAlias, 0)
 	for _, alias := range a.Aliases {
-		if _, ok := ArtistIDCache.Load(alias.ID); ok {
+		if _, ok := cache.ArtistIDCache.Load(alias.ID); ok {
 			slice = append(slice, &model.ArtistAlias{ArtistID: a.ID, AliasID: alias.ID})
 		}
 	}
-	return slice
+	return unique.Slice(slice)
 }
 
 func (a *XmlArtistRelation) GetGroups() []*model.ArtistGroup {
 	slice := make([]*model.ArtistGroup, 0)
 	for _, group := range a.Groups {
-		if _, ok := ArtistIDCache.Load(group.ID); ok {
+		if _, ok := cache.ArtistIDCache.Load(group.ID); ok {
 			slice = append(slice, &model.ArtistGroup{ArtistID: a.ID, GroupID: group.ID})
 		}
 	}
-	return slice
+	return unique.Slice(slice)
 }
 
 type XmlLabel struct {
@@ -109,7 +111,7 @@ func (l *XmlLabelRelation) GetUrls() []*model.LabelURL {
 			URL:     url,
 		})
 	}
-	return r
+	return unique.Slice(r)
 }
 
 func (l *XmlLabelRelation) GetParentID() *int32 {
@@ -141,11 +143,14 @@ func (m *XmlMaster) Transform() rxgo.Observable {
 }
 
 type XmlMasterRelation struct {
-	ID      int32      `xml:"id,attr"`
-	Styles  []string   `xml:"styles>style"`
-	Genres  []string   `xml:"genres>genre"`
-	Artists []int32    `xml:"artists>artist>id"`
-	Videos  []XmlVideo `xml:"videos>video"`
+	ID          int32      `xml:"id,attr"`
+	Title       *string    `xml:"title"`
+	DataQuality *string    `xml:"data_quality"`
+	Year        *int16     `xml:"year"`
+	Styles      []string   `xml:"styles>style"`
+	Genres      []string   `xml:"genres>genre"`
+	Artists     []int32    `xml:"artists>artist>id"`
+	Videos      []XmlVideo `xml:"videos>video"`
 }
 
 type XmlVideo struct {
@@ -154,26 +159,51 @@ type XmlVideo struct {
 	Description *string `xml:"description"`
 }
 
+func (m *XmlMasterRelation) GetStyles() []*model.Style {
+	s := make([]*model.Style, 0)
+	for _, style := range unique.Slice(m.Styles) {
+		s = append(s, &model.Style{Name: style})
+	}
+	return s
+}
+
+func (m *XmlMasterRelation) GetGenres() []*model.Genre {
+	g := make([]*model.Genre, 0)
+	for _, genre := range unique.Slice(m.Genres) {
+		g = append(g, &model.Genre{Name: genre})
+	}
+	return g
+}
+
+func (m *XmlMasterRelation) GetMaster() *model.Master {
+	return &model.Master{
+		ID:           m.ID,
+		Title:        m.Title,
+		DataQuality:  m.DataQuality,
+		ReleasedYear: m.Year,
+	}
+}
+
 func (m *XmlMasterRelation) GetMasterStyles() []*model.MasterStyle {
 	filteredMasterStyles := make([]*model.MasterStyle, 0)
 	for _, style := range m.Styles {
-		if id, ok := StyleCache.Load(style); ok {
+		if id, ok := cache.StyleCache.Load(style); ok {
 			ms := &model.MasterStyle{MasterID: m.ID, StyleID: id.(int32)}
 			filteredMasterStyles = append(filteredMasterStyles, ms)
 		}
 	}
-	return filteredMasterStyles
+	return unique.Slice(filteredMasterStyles)
 }
 
 func (m *XmlMasterRelation) GetMasterGenres() []*model.MasterGenre {
 	filteredMasterGenres := make([]*model.MasterGenre, 0)
 	for _, genre := range m.Genres {
-		if id, ok := GenreCache.Load(genre); ok {
+		if id, ok := cache.GenreCache.Load(genre); ok {
 			mg := &model.MasterGenre{MasterID: m.ID, GenreID: id.(int32)}
 			filteredMasterGenres = append(filteredMasterGenres, mg)
 		}
 	}
-	return filteredMasterGenres
+	return unique.Slice(filteredMasterGenres)
 }
 
 func (m *XmlMasterRelation) GetMasterVideos() []*model.MasterVideo {
@@ -187,35 +217,36 @@ func (m *XmlMasterRelation) GetMasterVideos() []*model.MasterVideo {
 			Title:       vid.Title,
 		})
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (m *XmlMasterRelation) GetMasterArtists() []*model.MasterArtist {
 	items := make([]*model.MasterArtist, 0)
 	for _, id := range m.Artists {
-		if _, ok := ArtistIDCache.Load(id); ok {
+		if _, ok := cache.ArtistIDCache.Load(id); ok {
 			items = append(items, &model.MasterArtist{
 				ArtistID: id,
 				MasterID: m.ID,
 			})
 		}
 	}
-	return items
+	return unique.Slice(items)
 }
 
 type XmlRelease struct {
-	ID                int32       `xml:"id,attr"`
-	Title             *string     `xml:"title"`
-	Country           *string     `xml:"country"`
-	DataQuality       *string     `xml:"data_quality"`
-	ListedReleaseDate *string     `xml:"released"`
-	Notes             *string     `xml:"notes"`
-	IsMaster          XmlIsMaster `xml:"master_id"`
-	Status            *string     `xml:"status,attr"`
+	ID                int32                `xml:"id,attr"`
+	Title             *string              `xml:"title"`
+	Country           *string              `xml:"country"`
+	DataQuality       *string              `xml:"data_quality"`
+	ListedReleaseDate *string              `xml:"released"`
+	Notes             *string              `xml:"notes"`
+	MasterInfo        XmlReleaseMasterInfo `xml:"master_id"`
+	Status            *string              `xml:"status,attr"`
 }
 
-type XmlIsMaster struct {
-	IsMaster bool `xml:"is_main_release,attr"`
+type XmlReleaseMasterInfo struct {
+	MasterID *int32 `xml:",cdata"`
+	IsMaster bool   `xml:"is_main_release,attr"`
 }
 
 func (m *XmlRelease) Transform() rxgo.Observable {
@@ -223,6 +254,15 @@ func (m *XmlRelease) Transform() rxgo.Observable {
 	if ymd := m.ListedReleaseDate; ymd != nil {
 		year, month, day = dateparser.ParseYMD(*ymd)
 	}
+
+	var masterID *int32
+
+	if m.MasterInfo.MasterID != nil {
+		if _, ok := cache.MasterIDCache.Load(*m.MasterInfo.MasterID); ok {
+			masterID = m.MasterInfo.MasterID
+		}
+	}
+
 	return rxgo.Just(&model.Release{
 		ID:                m.ID,
 		Title:             m.Title,
@@ -232,7 +272,8 @@ func (m *XmlRelease) Transform() rxgo.Observable {
 		ReleasedMonth:     month,
 		ReleasedDay:       day,
 		ListedReleaseDate: m.ListedReleaseDate,
-		IsMaster:          &m.IsMaster.IsMaster,
+		IsMaster:          &m.MasterInfo.IsMaster,
+		MasterID:          masterID,
 		Notes:             m.Notes,
 		Status:            m.Status,
 	})()
@@ -273,18 +314,67 @@ type XmlContract struct {
 }
 
 type XmlReleaseRelation struct {
-	ID              int32               `xml:"id,attr"`
-	MasterID        int32               `xml:"master_id"`
-	Artists         []int32             `xml:"artists>artist>id"`
-	Labels          []XmlLabelRelease   `xml:"labels>label"`
-	CreditedArtists []XmlCreditedArtist `xml:"extraartists>artist"`
-	Formats         []XmlFormat         `xml:"formats>format"`
-	Genres          []string            `xml:"genres>genre"`
-	Styles          []string            `xml:"styles>style"`
-	Tracks          []XmlTrack          `xml:"tracklist>track"`
-	Identifiers     []XmlIdentifier     `xml:"identifiers>identifier"`
-	Videos          []XmlVideo          `xml:"videos>video"`
-	Contracts       []XmlContract       `xml:"companies>company"`
+	ID                int32                `xml:"id,attr"`
+	Title             *string              `xml:"title"`
+	Country           *string              `xml:"country"`
+	DataQuality       *string              `xml:"data_quality"`
+	ListedReleaseDate *string              `xml:"released"`
+	Notes             *string              `xml:"notes"`
+	MasterInfo        XmlReleaseMasterInfo `xml:"master_id"`
+	Status            *string              `xml:"status,attr"`
+	Artists           []int32              `xml:"artists>artist>id"`
+	Labels            []XmlLabelRelease    `xml:"labels>label"`
+	CreditedArtists   []XmlCreditedArtist  `xml:"extraartists>artist"`
+	Formats           []XmlFormat          `xml:"formats>format"`
+	Genres            []string             `xml:"genres>genre"`
+	Styles            []string             `xml:"styles>style"`
+	Tracks            []XmlTrack           `xml:"tracklist>track"`
+	Identifiers       []XmlIdentifier      `xml:"identifiers>identifier"`
+	Videos            []XmlVideo           `xml:"videos>video"`
+	Contracts         []XmlContract        `xml:"companies>company"`
+}
+
+func (r *XmlReleaseRelation) GetGenres() []*model.Genre {
+	genres := make([]*model.Genre, 0)
+	for _, v := range unique.Slice(r.Genres) {
+		genres = append(genres, &model.Genre{Name: v})
+	}
+	return genres
+}
+
+func (r *XmlReleaseRelation) GetStyles() []*model.Style {
+	styles := make([]*model.Style, 0)
+	for _, v := range unique.Slice(r.Styles) {
+		styles = append(styles, &model.Style{Name: v})
+	}
+	return styles
+}
+
+func (r *XmlReleaseRelation) GetRelease() *model.Release {
+	var year, month, day *int16
+	if ymd := r.ListedReleaseDate; ymd != nil {
+		year, month, day = dateparser.ParseYMD(*ymd)
+	}
+	var masterID *int32
+	if r.MasterInfo.MasterID != nil {
+		if _, ok := cache.MasterIDCache.Load(*r.MasterInfo.MasterID); ok {
+			masterID = r.MasterInfo.MasterID
+		}
+	}
+	return &model.Release{
+		ID:                r.ID,
+		Title:             r.Title,
+		Country:           r.Country,
+		DataQuality:       r.DataQuality,
+		ReleasedYear:      year,
+		ReleasedMonth:     month,
+		ReleasedDay:       day,
+		ListedReleaseDate: r.ListedReleaseDate,
+		IsMaster:          &r.MasterInfo.IsMaster,
+		MasterID:          masterID,
+		Notes:             r.Notes,
+		Status:            r.Status,
+	}
 }
 
 func (r *XmlReleaseRelation) GetContracts() []*model.ReleaseContract {
@@ -295,7 +385,7 @@ func (r *XmlReleaseRelation) GetContracts() []*model.ReleaseContract {
 			continue
 		}
 		lid32 := int32(labelID)
-		if _, ok := LabelIDCache.Load(lid32); !ok {
+		if _, ok := cache.LabelIDCache.Load(lid32); !ok {
 			continue
 		}
 		items = append(items, &model.ReleaseContract{
@@ -305,7 +395,7 @@ func (r *XmlReleaseRelation) GetContracts() []*model.ReleaseContract {
 			Contract:     rc.Content,
 		})
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetVideos() []*model.ReleaseVideo {
@@ -319,7 +409,7 @@ func (r *XmlReleaseRelation) GetVideos() []*model.ReleaseVideo {
 			URLHash:     int64(helper.Fnv32Str(vid.URL)),
 		})
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetIdentifiers() []*model.ReleaseIdentifier {
@@ -333,7 +423,7 @@ func (r *XmlReleaseRelation) GetIdentifiers() []*model.ReleaseIdentifier {
 			IdentifierHash: int64(helper.Fnv32Str(identifier.Desc + identifier.Typ + identifier.Value)),
 		})
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetTracks() []*model.ReleaseTrack {
@@ -347,7 +437,7 @@ func (r *XmlReleaseRelation) GetTracks() []*model.ReleaseTrack {
 			TitleHash: int64(helper.Fnv32Str(track.Title)),
 		})
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetFormats() []*model.ReleaseFormat {
@@ -373,13 +463,13 @@ func (r *XmlReleaseRelation) GetFormats() []*model.ReleaseFormat {
 			FormatHash:  int64(helper.Fnv32Str(hashSrc)),
 		})
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetCreditedArtists() []*model.ReleaseCreditedArtist {
 	items := make([]*model.ReleaseCreditedArtist, 0)
 	for _, ca := range r.CreditedArtists {
-		if _, ok := ArtistIDCache.Load(ca.ArtistID); ok {
+		if _, ok := cache.ArtistIDCache.Load(ca.ArtistID); ok {
 			items = append(items, &model.ReleaseCreditedArtist{
 				ReleaseID: r.ID,
 				ArtistID:  ca.ArtistID,
@@ -388,26 +478,26 @@ func (r *XmlReleaseRelation) GetCreditedArtists() []*model.ReleaseCreditedArtist
 			})
 		}
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetReleaseArtists() []*model.ReleaseArtist {
 	items := make([]*model.ReleaseArtist, 0)
 	for _, artistID := range r.Artists {
-		if _, ok := ArtistIDCache.Load(artistID); ok {
+		if _, ok := cache.ArtistIDCache.Load(artistID); ok {
 			items = append(items, &model.ReleaseArtist{
 				ReleaseID: r.ID,
 				ArtistID:  artistID,
 			})
 		}
 	}
-	return items
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetLabels() []*model.LabelRelease {
 	items := make([]*model.LabelRelease, 0)
 	for _, label := range r.Labels {
-		if _, ok := LabelIDCache.Load(label.LabelID); ok {
+		if _, ok := cache.LabelIDCache.Load(label.LabelID); ok {
 			items = append(items, &model.LabelRelease{
 				LabelID:          label.LabelID,
 				ReleaseID:        r.ID,
@@ -415,35 +505,27 @@ func (r *XmlReleaseRelation) GetLabels() []*model.LabelRelease {
 			})
 		}
 	}
-	return items
-}
-
-func (r *XmlReleaseRelation) GetMasterReleases() []*model.MasterMainRelease {
-	m := make([]*model.MasterMainRelease, 0)
-	if _, ok := MasterIDCache.Load(id); ok {
-		m = append(m, &model.MasterMainRelease{ID: r.MasterID, MainReleaseID: r.ID})
-	}
-	return m
+	return unique.Slice(items)
 }
 
 func (r *XmlReleaseRelation) GetReleaseStyles() []*model.ReleaseStyle {
 	filteredReleaseStyles := make([]*model.ReleaseStyle, 0)
 	for _, style := range r.Styles {
-		if styleID, ok := StyleCache.Load(style); ok {
+		if styleID, ok := cache.StyleCache.Load(style); ok {
 			rs := &model.ReleaseStyle{ReleaseID: r.ID, StyleID: styleID.(int32)}
 			filteredReleaseStyles = append(filteredReleaseStyles, rs)
 		}
 	}
-	return filteredReleaseStyles
+	return unique.Slice(filteredReleaseStyles)
 }
 
 func (r *XmlReleaseRelation) GetReleaseGenres() []*model.ReleaseGenre {
 	filteredReleaseGenres := make([]*model.ReleaseGenre, 0)
 	for _, genre := range r.Genres {
-		if genreID, ok := GenreCache.Load(genre); ok {
+		if genreID, ok := cache.GenreCache.Load(genre); ok {
 			rg := &model.ReleaseGenre{ReleaseID: r.ID, GenreID: genreID.(int32)}
 			filteredReleaseGenres = append(filteredReleaseGenres, rg)
 		}
 	}
-	return filteredReleaseGenres
+	return unique.Slice(filteredReleaseGenres)
 }
