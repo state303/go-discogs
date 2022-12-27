@@ -7,7 +7,10 @@ import (
 	"strings"
 )
 
-var pkRegExp = regexp.MustCompile(".*primaryKey.*")
+var (
+	pkRegExp  = regexp.MustCompile(".*primaryKey.*")
+	colRegExp = regexp.MustCompile("^column:.*")
+)
 
 func ExtractGormPKColumns(i interface{}) []string {
 	defer func() {
@@ -29,7 +32,7 @@ func ExtractGormPKColumns(i interface{}) []string {
 			continue
 		} else {
 			for _, part := range strings.Split(tag, ";") {
-				if matched, _ := regexp.MatchString("^column:.*", part); !matched {
+				if matched := colRegExp.MatchString(part); !matched {
 					continue
 				}
 				columnName := strings.ReplaceAll(part, "column:", "")

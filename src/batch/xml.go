@@ -469,7 +469,12 @@ func (r *XmlReleaseRelation) GetFormats() []*model.ReleaseFormat {
 func (r *XmlReleaseRelation) GetCreditedArtists() []*model.ReleaseCreditedArtist {
 	items := make([]*model.ReleaseCreditedArtist, 0)
 	for _, ca := range r.CreditedArtists {
-		if _, ok := cache.ArtistIDCache.Load(ca.ArtistID); ok {
+		if _, ok := cache.ArtistIDCache.Load(ca.ArtistID); ok && len(ca.Role) > 0 {
+			parts := strings.Split(ca.Role, ",")
+			for i := range parts {
+				parts[i] = strings.TrimSpace(parts[i])
+			}
+			ca.Role = strings.Join(parts, ",")
 			items = append(items, &model.ReleaseCreditedArtist{
 				ReleaseID: r.ID,
 				ArtistID:  ca.ArtistID,

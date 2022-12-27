@@ -5,47 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c613a3b-3238-414d-a273-11fe834dc3f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/model/hook.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helper/extract.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helper/extract_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/unique/slice.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/unique/slice_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c153078f-8d2a-49d8-88ce-bccd8a3dc5a5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c153078f-8d2a-49d8-88ce-bccd8a3dc5a5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c153078f-8d2a-49d8-88ce-bccd8a3dc5a5/storage_v2/_src_/database/discogs.5jufYw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c153078f-8d2a-49d8-88ce-bccd8a3dc5a5/storage_v2/_src_/database/discogs.5jufYw/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/normalize.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/helper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/normalize_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/helper_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/master.gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/master.gen.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/mastermainrelease.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/release.gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/release.gen.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/mysql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mysql/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/postgres/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/postgres/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/artist.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/artist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/batch_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/batch_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cache/cache.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/extract.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/extract.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/insert.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/insert.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/label.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/label.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/master.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/master.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/order.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/release.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/release.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/release_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/release_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/testdata/release.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/testdata/release.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/testdata/release.xml.gz" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/testdata/release.xml.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/writer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/writer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/batch/xml.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/xml.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/data.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/data.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/gorm.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/gorm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discogs/ddl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/ddl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discogs/discogs.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/runner.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/discogs/helper.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/batch/helper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/file/file_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/file/file_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/func.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/func.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/go-discogs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/go-discogs.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +22,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file:///opt/homebrew/Cellar/go/1.19.3/libexec" />
+  <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -265,8 +225,8 @@
     <SUITE FILE_PATH="coverage/go_discogs$gobench_github_com_state303_go_discogs_src_batch.out" NAME="gobench github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1669608806771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestFileOverridesEnv_in_github_com_state303_go_discogs_src_config.out" NAME="TestFileOverridesEnv in github.com/state303/go-discogs/src/config Coverage Results" MODIFIED="1668735609940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestFindByYear_in_github_com_state303_go_discogs_src_data.out" NAME="TestFindByYear in github.com/state303/go-discogs/src/data Coverage Results" MODIFIED="1669435589929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/go_discogs$TestBatch_in_github_com_state303_go_discogs_src_batch.out" NAME="TestBatch in github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1669619134567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$Test_getMainFunc_in_github_com_state303_go_discogs_cmd.out" NAME="Test_getMainFunc in github.com/state303/go-discogs/cmd Coverage Results" MODIFIED="1668886046543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/go_discogs$TestBatch_in_github_com_state303_go_discogs_src_batch.out" NAME="TestBatch in github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1671074297965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$Test_artistRepo_BatchInsertRelations_in_github_com_state303_go_discogs_src_artist.out" NAME="Test_artistRepo_BatchInsertRelations in github.com/state303/go-discogs/src/artist Coverage Results" MODIFIED="1669291601862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestNewArtistRepository_in_github_com_state303_go_discogs_src_artist.out" NAME="TestNewArtistRepository in github.com/state303/go-discogs/src/artist Coverage Results" MODIFIED="1669051428817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$validation_test_go.out" NAME="validation_test.go Coverage Results" MODIFIED="1669751503922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -322,7 +282,7 @@
     <SUITE FILE_PATH="coverage/go_discogs$TestReleaseRead_in_github_com_state303_go_discogs_src_batch.out" NAME="TestReleaseRead in github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1669548809140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$Test_fixTypesAsPlural_must_not_complain_when_no_types_present_in_github_com_state303_go_discogs_cmd.out" NAME="Test_fixTypesAsPlural/must_not_complain_when_no_types_present in github.com/state303/go-discogs/cmd Coverage Results" MODIFIED="1669454120822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$go_test_src.out" NAME="go test src Coverage Results" MODIFIED="1668844566525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/go_discogs$batch_test_go.out" NAME="batch_test.go Coverage Results" MODIFIED="1671100205342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/go_discogs$batch_test_go.out" NAME="batch_test.go Coverage Results" MODIFIED="1669654675298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestWriter_in_github_com_state303_go_discogs_src_batch.out" NAME="TestWriter in github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1669473207486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestUpdateGenreStyle_in_github_com_state303_go_discogs_src_batch.out" NAME="TestUpdateGenreStyle in github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1669499728440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$Test_stream_Filter_in_github_com_state303_go_discogs_src_data.out" NAME="Test_stream_Filter in github.com/state303/go-discogs/src/data Coverage Results" MODIFIED="1668649117293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -348,12 +308,12 @@
     <SUITE FILE_PATH="coverage/go_discogs$Test_parseChecksumTextLine_in_github_com_state303_go_discogs_src_discogs.out" NAME="Test_parseChecksumTextLine in github.com/state303/go-discogs/src/discogs Coverage Results" MODIFIED="1668833825740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$reader_test_go.out" NAME="reader_test.go Coverage Results" MODIFIED="1669373454823" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$label_test_go.out" NAME="label_test.go Coverage Results" MODIFIED="1669493833518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/go_discogs$go_test_go_discogs.out" NAME="go test go-discogs Coverage Results" MODIFIED="1669746191279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestStream_Then_in_github_com_state303_go_discogs_src_data.out" NAME="TestStream_Then in github.com/state303/go-discogs/src/data Coverage Results" MODIFIED="1668843808191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/go_discogs$go_test_go_discogs.out" NAME="go test go-discogs Coverage Results" MODIFIED="1670586692676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestGetLastUriSegment_in_github_com_state303_go_discogs_src_helper.out" NAME="TestGetLastUriSegment in github.com/state303/go-discogs/src/helper Coverage Results" MODIFIED="1669453514373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestFetchFiles_in_github_com_state303_go_discogs_src_data.out" NAME="TestFetchFiles in github.com/state303/go-discogs/src/data Coverage Results" MODIFIED="1669440251265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$go_test_dateparser.out" NAME="go test dateparser Coverage Results" MODIFIED="1669633398328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/go_discogs$go_test_github_com_state303_go_discogs_src_batch.out" NAME="go test github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1671057542319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/go_discogs$go_test_github_com_state303_go_discogs_src_batch.out" NAME="go test github.com/state303/go-discogs/src/batch Coverage Results" MODIFIED="1669608813015" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestBindConfigFileEmptyPath_in_github_com_state303_go_discogs_src_config.out" NAME="TestBindConfigFileEmptyPath in github.com/state303/go-discogs/src/config Coverage Results" MODIFIED="1668694513387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$gorm_test_go.out" NAME="gorm_test.go Coverage Results" MODIFIED="1668908262290" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/go_discogs$TestBindEnvVarOverridesBindFlags_in_github_com_state303_go_discogs_src_config.out" NAME="TestBindEnvVarOverridesBindFlags in github.com/state303/go-discogs/src/config Coverage Results" MODIFIED="1668736166329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
