@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/state303/go-discogs/compare/v1.0.1...v1.1.0) (2022-12-27)
+
+
+### Bug Fixes
+
+* trim spaces for artist rols on releases ([f2dff81](https://github.com/state303/go-discogs/commit/f2dff810532b6c5ae91514d3f65ff373a9445120))
+
+
+### Features
+
+* simplifies master and release step ([c40e958](https://github.com/state303/go-discogs/commit/c40e958e7bdefc72a94922338bccee5bcad7d772))
+
 ## [1.0.1](https://github.com/state303/go-discogs/compare/v1.0.0...v1.0.1) (2022-11-30)
 
 
