@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/state303/go-discogs/compare/v1.1.0...v1.1.1) (2022-12-27)
+
+
+### Bug Fixes
+
+* adds tests and housekeeping src ([23cfcfc](https://github.com/state303/go-discogs/commit/23cfcfc3ed63d8d472cf2250dd74a2e0e68e7154))
+* removes redundant regexp ([9b1ded4](https://github.com/state303/go-discogs/commit/9b1ded4731ccde7d3ecd09bc975a8e7c80d190ae))
+* tidy mod ([da71716](https://github.com/state303/go-discogs/commit/da717161219412bbc24c2978a0d37804e6943937))
+
 # [1.1.0](https://github.com/state303/go-discogs/compare/v1.0.1...v1.1.0) (2022-12-27)
 
 
