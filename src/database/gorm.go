@@ -19,7 +19,6 @@ const (
 )
 
 var (
-	m = regexp.MustCompile(`^(mysql)://([^/]+:[^/]+)@([^/]+:\d+)/(.*)?$`)
 	p = regexp.MustCompile(`(^(postgres)://.*$|^host=\w+ user=\w+ password=\w+ dbname=\w+ port=\d+ .*$)`)
 	x = regexp.MustCompile(`^(.*)://.*$`)
 )
