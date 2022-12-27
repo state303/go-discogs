@@ -2,15 +2,12 @@ package database
 
 import (
 	"errors"
-	"fmt"
-	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
 	"os"
 	"regexp"
-	"strings"
 	"time"
 )
 
@@ -22,7 +19,6 @@ const (
 )
 
 var (
-	m = regexp.MustCompile(`^(mysql)://([^/]+:[^/]+)@([^/]+:\d+)/(.*)?$`)
 	p = regexp.MustCompile(`(^(postgres)://.*$|^host=\w+ user=\w+ password=\w+ dbname=\w+ port=\d+ .*$)`)
 	x = regexp.MustCompile(`^(.*)://.*$`)
 )
@@ -48,15 +44,6 @@ func GetConnect(dsn string) (*gorm.DB, error) {
 	var dl gorm.Dialector
 	if len(dsn) == 0 {
 		return nil, errors.New("missing dsn")
-	}
-	if m.MatchString(dsn) || strings.Contains(dsn, "tcp") {
-		match := m.FindStringSubmatch(dsn)
-		dd := dsn
-		if m.MatchString(dsn) {
-			dd = fmt.Sprintf("%+v@tcp(%+v)/%+v", match[2], match[3], match[4])
-		}
-		Kind = MySQL
-		dl = mysql.Open(dd)
 	} else if p.MatchString(dsn) {
 		Kind = Postgres
 		dl = postgres.Open(dsn)
