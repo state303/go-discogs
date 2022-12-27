@@ -9,7 +9,7 @@ on:
       - '*.yml'
       - '*.yaml'
       - 'LICENSE'
-
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
