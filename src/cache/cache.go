@@ -1,4 +1,4 @@
-package batch
+package cache
 
 import (
 	"sync"

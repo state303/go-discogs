@@ -2,12 +2,12 @@ package batch
 
 import (
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"github.com/state303/go-discogs/model"
+	"github.com/state303/go-discogs/src/cache"
 	"github.com/state303/go-discogs/src/helper"
 	"github.com/state303/go-discogs/src/reader"
 	"github.com/state303/go-discogs/src/result"
-	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"sync"
 )
 
@@ -15,85 +15,8 @@ import (
 
 func GetMasterStep(order Order) Step {
 	return func() result.Result {
-		updated := 0
-		res := UpdateGenreStyle(order, "master")
-		updated += res.Count()
-		if res.IsErr() {
-			return result.NewResult(updated, res.Err())
-		}
-		res = InsertMaster(order)
-		updated += res.Count()
-		if res.IsErr() {
-			return result.NewResult(updated, res.Err())
-		}
-		res = InsertMasterRelations(order)
-		updated += res.Count()
-		if res.IsErr() {
-			return result.NewResult(updated, res.Err())
-		}
-		return result.NewResult(updated, nil)
+		return InsertMasterRelations(order)
 	}
-}
-
-func InsertMaster(order Order) result.Result {
-	return InsertSimple[XmlMaster, model.Master](order, "masters", "master")
-}
-
-func UpdateGenreStyle(order Order, localName string) result.Result {
-	r := newReadCloser(order.getFilePath(), "update genres and styles")
-
-	styles, genres := make(map[string]struct{}), make(map[string]struct{})
-	for item := range reader.NewReader[XmlGenreStyle](order.getContext(), r, localName).Observe() {
-		gs := item.V.(*XmlGenreStyle)
-		for _, s := range gs.Styles {
-			styles[s] = struct{}{}
-		}
-		for _, g := range gs.Genres {
-			genres[g] = struct{}{}
-		}
-	}
-
-	ms, mg := make([]*model.Style, 0), make([]*model.Genre, 0)
-	for s := range styles {
-		ms = append(ms, &model.Style{Name: s})
-	}
-	for g := range genres {
-		mg = append(mg, &model.Genre{Name: g})
-	}
-
-	fmt.Printf("\nScanned %+v styles and %+v genres.\n", len(ms), len(mg))
-
-	tx := order.getDB().
-		Session(&gorm.Session{}).
-		Clauses(styleConstraint).
-		Create(&ms)
-	updated := int(tx.RowsAffected)
-	fmt.Printf("Updated %+v styles\n", tx.RowsAffected)
-	if tx.Error != nil {
-		logrus.Errorf("error during styles insertion: %+v\n", tx.Error)
-	}
-	tx = order.getDB().
-		Session(&gorm.Session{}).
-		Clauses(genreConstraint).
-		Create(&mg)
-	updated += int(tx.RowsAffected)
-	fmt.Printf("Updated %+v genres\n", tx.RowsAffected)
-	if tx.Error != nil {
-		logrus.Errorf("error dusing genres insertion: %+v\n", tx.Error)
-	}
-
-	fetchedS, fetchedG := make([]*model.Style, 0), make([]*model.Genre, 0)
-	order.getDB().Session(&gorm.Session{}).Find(&fetchedS)
-	order.getDB().Session(&gorm.Session{}).Find(&fetchedG)
-
-	for _, s := range fetchedS {
-		StyleCache.Store(s.Name, s.ID)
-	}
-	for _, g := range fetchedG {
-		GenreCache.Store(g.Name, g.ID)
-	}
-	fmt.Printf("Cached %+v styles and %+v genres.\n", len(ms), len(mg))
-	return result.NewResult(updated, nil)
 }
 
 func InsertMasterRelations(order Order) result.Result {
@@ -132,14 +55,54 @@ func WriteMasterRelations(order Order, res chan result.Result, wg *sync.WaitGrou
 	return func(i interface{}) {
 		wg.Add(1) // process takes time, hence add lock scenario
 		mrs := i.([]*XmlMasterRelation)
-		mv := make([]*model.MasterVideo, 0)
-		ms := make([]*model.MasterStyle, 0)
-		mg := make([]*model.MasterGenre, 0)
-		ma := make([]*model.MasterArtist, 0)
+
+		s := make([]*model.Style, 0)
+		g := make([]*model.Genre, 0)
+
+		for _, rr := range mrs {
+			if rr == nil {
+				continue
+			}
+			g = append(g, rr.GetGenres()...)
+			s = append(s, rr.GetStyles()...)
+		}
+
+		s = filterStyles(s)
+		g = filterGenres(g)
+
+		order.getDB().
+			Clauses(clause.OnConflict{DoNothing: true}).
+			CreateInBatches(filterGenres(g), order.getChunkSize())
+		order.getDB().
+			Clauses(clause.OnConflict{DoNothing: true}).
+			CreateInBatches(filterStyles(s), order.getChunkSize())
+
+		var fg []*model.Genre
+		var fs []*model.Style
+
+		order.getDB().Find(&fs)
+		order.getDB().Find(&fg)
+
+		for _, v := range fs {
+			cache.StyleCache.Store(v.Name, v.ID)
+		}
+		for _, v := range fg {
+			cache.GenreCache.Store(v.Name, v.ID)
+		}
+
+		var (
+			m  = make([]*model.Master, 0)
+			mv = make([]*model.MasterVideo, 0)
+			ms = make([]*model.MasterStyle, 0)
+			mg = make([]*model.MasterGenre, 0)
+			ma = make([]*model.MasterArtist, 0)
+		)
+
 		for _, mr := range mrs {
 			if mr == nil {
 				continue
 			}
+			m = append(m, mr.GetMaster())
 			ms = append(ms, mr.GetMasterStyles()...)
 			mg = append(mg, mr.GetMasterGenres()...)
 			mv = append(mv, mr.GetMasterVideos()...)
@@ -147,7 +110,7 @@ func WriteMasterRelations(order Order, res chan result.Result, wg *sync.WaitGrou
 		}
 		go func(res chan result.Result) {
 			defer wg.Done()
-			res <- writeThenReport(order, wg, mv, ms, mg, ma)
+			res <- writeThenReport(order, wg, m, mv, ms, mg, ma)
 		}(res)
 	}
 }

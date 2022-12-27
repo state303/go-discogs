@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"github.com/state303/go-discogs/model"
+	"github.com/state303/go-discogs/src/cache"
 	"github.com/state303/go-discogs/src/helper"
 	"github.com/state303/go-discogs/src/reader"
 	"github.com/state303/go-discogs/src/result"
@@ -96,7 +97,7 @@ func updateLabelsParent(labels []*XmlLabelRelation, db *gorm.DB) result.Result {
 		if pid == nil {
 			continue
 		}
-		if _, ok := LabelIDCache.Load(*pid); ok {
+		if _, ok := cache.LabelIDCache.Load(*pid); ok {
 			logrus.Debugf("\nlookup for lable id %+v failed due to missing cache\n", *pid)
 			lps = append(lps, &model.Label{ID: v.ID, ParentID: pid})
 		}

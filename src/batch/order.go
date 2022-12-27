@@ -32,7 +32,7 @@ func (o *orderImpl) getFilePath() string {
 }
 
 func (o *orderImpl) getDB() *gorm.DB {
-	return o.db
+	return o.db.Session(&gorm.Session{})
 }
 
 func NewOrder(ctx context.Context, chunkSize int, filepath string, db *gorm.DB) Order {

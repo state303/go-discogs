@@ -2,6 +2,7 @@ package batch
 
 import (
 	"github.com/state303/go-discogs/model"
+	"github.com/state303/go-discogs/src/helper"
 	"gorm.io/gorm/clause"
 )
 
@@ -16,7 +17,7 @@ const (
 	title             = "title"
 	releasedYear      = "released_year"
 	releasedMonth     = "released_month"
-	mainReleaseID     = "main_release_id"
+	masterId          = "master_id"
 	releasedDay       = "released_day"
 	listedReleaseDate = "listed_release_date"
 	isMaster          = "is_master"
@@ -38,15 +39,15 @@ func ExtractClause(i interface{}) clause.OnConflict {
 	case *model.Master:
 		return updateOnIdConflict(dataQuality, title, releasedYear)
 	case *model.Release:
-		return updateOnIdConflict(title, country, dataQuality, releasedYear, releasedMonth, releasedDay, listedReleaseDate, isMaster, notes, status)
-	case *model.MasterMainRelease:
-		return updateOnIdConflict(mainReleaseID)
+		return updateOnIdConflict(title, country, dataQuality, releasedYear, releasedMonth, releasedDay, listedReleaseDate, isMaster, masterId, notes, status)
 	case *model.Style:
 		return styleConstraint
 	case *model.Genre:
 		return genreConstraint
+	case *model.Data:
+		return clause.OnConflict{DoNothing: true}
 	}
-	return clause.OnConflict{DoNothing: true}
+	return clause.OnConflict{Columns: getClauseColumns(helper.ExtractGormPKColumns(i)), DoUpdates: clause.Assignments(map[string]interface{}{"updated_at": "NOW()"})}
 }
 
 func getClauseColumns(columns []string) []clause.Column {

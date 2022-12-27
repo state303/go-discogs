@@ -1,8 +1,10 @@
 package batch
 
 import (
+	"github.com/sirupsen/logrus"
 	"github.com/state303/go-discogs/model"
 	"github.com/state303/go-discogs/src/result"
+	"github.com/state303/go-discogs/src/unique"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"sync"
@@ -34,7 +36,6 @@ func (g gormWriter) Write(chunkSize int, slices ...interface{}) result.Result {
 		err     error
 	)
 	err = nil
-
 	for _, slice := range slices {
 		if err != nil {
 			break
@@ -59,8 +60,6 @@ func (g gormWriter) Write(chunkSize int, slices ...interface{}) result.Result {
 			r = doWrite[*model.LabelRelease](o, chunkSize, g.db)
 		case []*model.Master:
 			r = doWrite[*model.Master](o, chunkSize, g.db)
-		case []*model.MasterMainRelease:
-			r = doWrite[*model.MasterMainRelease](o, chunkSize, g.db)
 		case []*model.MasterArtist:
 			r = doWrite[*model.MasterArtist](o, chunkSize, g.db)
 		case []*model.MasterGenre:
@@ -91,6 +90,10 @@ func (g gormWriter) Write(chunkSize int, slices ...interface{}) result.Result {
 			r = doWrite[*model.ReleaseTrack](o, chunkSize, g.db)
 		case []*model.ReleaseVideo:
 			r = doWrite[*model.ReleaseVideo](o, chunkSize, g.db)
+		case []*model.Style:
+			r = doWrite[*model.Style](o, chunkSize, g.db)
+		case []*model.Genre:
+			r = doWrite[*model.Genre](o, chunkSize, g.db)
 		}
 		if r != nil {
 			updated += r.Count()
@@ -101,7 +104,7 @@ func (g gormWriter) Write(chunkSize int, slices ...interface{}) result.Result {
 	return result.NewResult(updated, err)
 }
 
-func doWrite[T any](items []T, chunkSize int, db *gorm.DB) result.Result {
+func doWrite[T comparable](items []T, chunkSize int, db *gorm.DB) result.Result {
 	var (
 		start     = 0
 		end       = chunkSize
@@ -113,13 +116,16 @@ func doWrite[T any](items []T, chunkSize int, db *gorm.DB) result.Result {
 		cl = ExtractClause(items[0])
 	}
 	for {
+		if resultSum.IsErr() {
+			logrus.Errorf("error during insertion: %+v\n", resultSum.Err())
+		}
 		if start >= size || resultSum.Err() != nil {
 			return resultSum
 		}
 		if end > size {
 			end = size
 		}
-		part := items[start:end]
+		part := unique.Slice(items[start:end])
 		tx := db.Clauses(cl).CreateInBatches(&part, len(part))
 		resultSum = resultSum.Sum(result.NewResult(int(tx.RowsAffected), tx.Error))
 		start += chunkSize

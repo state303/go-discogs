@@ -6,13 +6,13 @@ import (
 )
 
 func SliceMapper[T any]() func(_ context.Context, i interface{}) (interface{}, error) {
-	return func(ctx context.Context, i interface{}) (interface{}, error) {
+	return func(_ context.Context, i interface{}) (interface{}, error) {
 		return []T{i.(T)}, nil
 	}
 }
 
 func SliceReducer[T any]() func(_ context.Context, acc interface{}, elem interface{}) (interface{}, error) {
-	return func(ctx context.Context, acc interface{}, elem interface{}) (interface{}, error) {
+	return func(_ context.Context, acc interface{}, elem interface{}) (interface{}, error) {
 		if acc == nil {
 			return elem, nil
 		}
@@ -20,8 +20,8 @@ func SliceReducer[T any]() func(_ context.Context, acc interface{}, elem interfa
 	}
 }
 
-func MergeCount() func(ctx context.Context, i interface{}, i2 interface{}) (interface{}, error) {
-	return func(ctx context.Context, acc interface{}, curr interface{}) (interface{}, error) {
+func MergeCount() func(_ context.Context, i interface{}, i2 interface{}) (interface{}, error) {
+	return func(_ context.Context, acc interface{}, curr interface{}) (interface{}, error) {
 		if acc == nil {
 			return curr.(int), nil
 		}
@@ -29,8 +29,8 @@ func MergeCount() func(ctx context.Context, i interface{}, i2 interface{}) (inte
 	}
 }
 
-func MapWindowedSlice[T any]() func(ctx context.Context, i interface{}) (interface{}, error) {
-	return func(ctx context.Context, i interface{}) (interface{}, error) {
+func MapWindowedSlice[T any]() func(_ context.Context, i interface{}) (interface{}, error) {
+	return func(_ context.Context, i interface{}) (interface{}, error) {
 		items := make([]T, 0)
 		for item := range i.(rxgo.Observable).Observe() {
 			if item.V == nil {

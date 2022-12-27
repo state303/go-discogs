@@ -117,11 +117,11 @@ func DispatchChecksumFetch() func(context.Context, interface{}) (interface{}, er
 			go func() {
 				defer checksumFetchWg.Done()
 				select {
-				case v := <-getClient().Get(ctx, DiscogsS3BaseUrl+dump.Uri).Observe(): // TODO: throttled test
+				case v := <-getClient().Get(ctx, DiscogsS3BaseUrl+dump.Uri).Observe():
 					if !v.Error() {
 						storeChecksum(string(v.V.([]byte)))
 					}
-				case <-ctx.Done(): // TODO: test cancel context while throttle
+				case <-ctx.Done():
 					return
 				}
 			}()
@@ -165,7 +165,7 @@ func UpdateData(ctx context.Context, repo Repository) (int, error) {
 		Filter(ValidUriFilter()).
 		Map(PopulateFromUri()).
 		Map(DispatchChecksumFetch(), rxgo.WithCPUPool()). // NOT ordered
-		ToSlice(400, rxgo.WithContext(ctx))               // known size: 777 and beyond
+		ToSlice(400, rxgo.WithContext(ctx)) // known size: 777 and beyond
 
 	if err != nil {
 		return -1, err

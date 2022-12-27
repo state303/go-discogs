@@ -35,8 +35,8 @@ func GetVersion() string {
 
 func main() {
 	cmd.Execute()
-	// NOTE >> remainders for model generation
-	//
+	//NOTE >> remainders for model generation
+
 	//g := gen.NewGenerator(gen.Config{
 	//	OutPath:           "./model",
 	//	OutFile:           "",

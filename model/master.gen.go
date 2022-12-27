@@ -11,7 +11,6 @@ type Master struct {
 	ID            int32   `gorm:"column:id;type:integer;primaryKey" json:"id"`
 	DataQuality   *string `gorm:"column:data_quality;type:character varying(100)" json:"data_quality"`
 	Title         *string `gorm:"column:title;type:character varying(2000)" json:"title"`
-	MainReleaseID *int32  `gorm:"column:main_release_id;type:integer" json:"main_release_id"`
 	ReleasedYear  *int16  `gorm:"column:released_year;type:smallint" json:"released_year"`
 }
 

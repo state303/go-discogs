@@ -3,9 +3,12 @@ package batch
 import (
 	"fmt"
 	"github.com/state303/go-discogs/model"
+	"github.com/state303/go-discogs/src/cache"
 	"github.com/state303/go-discogs/src/helper"
 	"github.com/state303/go-discogs/src/reader"
 	"github.com/state303/go-discogs/src/result"
+	"github.com/state303/go-discogs/src/unique"
+	"gorm.io/gorm/clause"
 	"sync"
 )
 
@@ -15,32 +18,12 @@ import (
 // This is a convenient func such that reduces code and adds syntactic sugar, but nothing more.
 func GetReleaseStep(order Order) Step {
 	return func() result.Result {
-		updated := 0
-		res := UpdateGenreStyle(order, "release")
-		updated += res.Count()
-		if res.IsErr() {
-			return result.NewResult(updated, res.Err())
-		}
-		res = insertReleases(order)
-		updated += res.Count()
-		if res.IsErr() {
-			return result.NewResult(updated, res.Err())
-		}
-		res = insertReleaseRelations(order)
-		updated += res.Count()
-		if res.IsErr() {
-			return result.NewResult(updated, res.Err())
-		}
-		return result.NewResult(updated, nil)
+		return insertReleases(order)
 	}
 }
 
 func insertReleases(order Order) result.Result {
-	return InsertSimple[XmlRelease, model.Release](order, "releases", "release")
-}
-
-func insertReleaseRelations(order Order) result.Result {
-	r := newReadCloser(order.getFilePath(), "updating release relations...")
+	r := newReadCloser(order.getFilePath(), "updating releases...")
 
 	var (
 		wg   = new(sync.WaitGroup)
@@ -53,7 +36,7 @@ func insertReleaseRelations(order Order) result.Result {
 			WindowWithCount(order.getChunkSize()).
 			Map(helper.MapWindowedSlice[*XmlReleaseRelation]()).
 			ForEach(
-				writeReleaseRelations(order, res, wg),
+				doInsertReleases(order, res, wg),
 				printError(),
 				signalDone(done, wg))
 	}()
@@ -72,12 +55,15 @@ func insertReleaseRelations(order Order) result.Result {
 	return sum
 }
 
-func writeReleaseRelations(order Order, res chan result.Result, wg *sync.WaitGroup) func(i interface{}) {
+func doInsertReleases(order Order, res chan result.Result, wg *sync.WaitGroup) func(i interface{}) {
 	return func(i interface{}) {
 		wg.Add(1)
 		rrs := i.([]*XmlReleaseRelation)
 
 		var (
+			g   = make([]*model.Genre, 0)
+			s   = make([]*model.Style, 0)
+			rel = make([]*model.Release, 0)
 			ra  = make([]*model.ReleaseArtist, 0)
 			rca = make([]*model.ReleaseCreditedArtist, 0)
 			rc  = make([]*model.ReleaseContract, 0)
@@ -88,13 +74,41 @@ func writeReleaseRelations(order Order, res chan result.Result, wg *sync.WaitGro
 			rt  = make([]*model.ReleaseTrack, 0)
 			rv  = make([]*model.ReleaseVideo, 0)
 			rl  = make([]*model.LabelRelease, 0)
-			rm  = make([]*model.MasterMainRelease, 0)
 		)
 
 		for _, rr := range rrs {
 			if rr == nil {
 				continue
 			}
+			g = append(g, rr.GetGenres()...)
+			s = append(s, rr.GetStyles()...)
+		}
+
+		order.getDB().
+			Clauses(clause.OnConflict{DoNothing: true}).
+			CreateInBatches(filterGenres(g), order.getChunkSize())
+		order.getDB().
+			Clauses(clause.OnConflict{DoNothing: true}).
+			CreateInBatches(filterStyles(s), order.getChunkSize())
+
+		var fg []*model.Genre
+		var fs []*model.Style
+
+		order.getDB().Find(&fs)
+		order.getDB().Find(&fg)
+
+		for _, v := range fs {
+			cache.StyleCache.Store(v.Name, v.ID)
+		}
+		for _, v := range fg {
+			cache.GenreCache.Store(v.Name, v.ID)
+		}
+
+		for _, rr := range rrs {
+			if rr == nil {
+				continue
+			}
+			rel = append(rel, rr.GetRelease())
 			ra = append(ra, rr.GetReleaseArtists()...)
 			rg = append(rg, rr.GetReleaseGenres()...)
 			rs = append(rs, rr.GetReleaseStyles()...)
@@ -104,13 +118,32 @@ func writeReleaseRelations(order Order, res chan result.Result, wg *sync.WaitGro
 			ri = append(ri, rr.GetIdentifiers()...)
 			rt = append(rt, rr.GetTracks()...)
 			rv = append(rv, rr.GetVideos()...)
-			rm = append(rm, rr.GetMasterReleases()...)
 			rca = append(rca, rr.GetCreditedArtists()...)
 		}
 
 		go func(res chan result.Result) {
 			defer wg.Done()
-			res <- writeThenReport(order, wg, ra, rc, rs, rg, rl, rf, ri, rt, rv, rca, rm)
+			res <- writeThenReport(order, wg, rel, ra, rc, rs, rg, rl, rf, ri, rt, rv, rca)
 		}(res)
 	}
+}
+
+func filterGenres(genres []*model.Genre) []*model.Genre {
+	r := make([]*model.Genre, 0)
+	for _, v := range unique.Slice(genres) {
+		if _, ok := cache.GenreCache.Load(v); !ok {
+			r = append(r, v)
+		}
+	}
+	return r
+}
+
+func filterStyles(styles []*model.Style) []*model.Style {
+	r := make([]*model.Style, 0)
+	for _, v := range unique.Slice(styles) {
+		if _, ok := cache.StyleCache.Load(v); !ok {
+			r = append(r, v)
+		}
+	}
+	return r
 }
