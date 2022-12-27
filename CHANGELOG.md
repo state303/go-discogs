@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/state303/go-discogs/compare/v1.1.1...v1.1.2) (2022-12-27)
+
+
+### Bug Fixes
+
+* gofmt linting ([524cddb](https://github.com/state303/go-discogs/commit/524cddb60be16e9972b4000025112905b9373256))
+
 ## [1.1.1](https://github.com/state303/go-discogs/compare/v1.1.0...v1.1.1) (2022-12-27)
 
 
