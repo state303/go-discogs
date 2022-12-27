@@ -165,7 +165,7 @@ func UpdateData(ctx context.Context, repo Repository) (int, error) {
 		Filter(ValidUriFilter()).
 		Map(PopulateFromUri()).
 		Map(DispatchChecksumFetch(), rxgo.WithCPUPool()). // NOT ordered
-		ToSlice(400, rxgo.WithContext(ctx)) // known size: 777 and beyond
+		ToSlice(400, rxgo.WithContext(ctx))               // known size: 777 and beyond
 
 	if err != nil {
 		return -1, err
