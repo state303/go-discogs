@@ -384,6 +384,7 @@ func (r *XmlReleaseRelation) GetContracts() []*model.ReleaseContract {
 		if err != nil {
 			continue
 		}
+
 		lid32 := int32(labelID)
 		if _, ok := cache.LabelIDCache.Load(lid32); !ok {
 			continue

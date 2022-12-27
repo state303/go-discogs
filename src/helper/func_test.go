@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"github.com/reactivex/rxgo/v2"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -39,6 +40,36 @@ func TestSliceReducer(t *testing.T) {
 		require.Len(t, res, 4)
 		for _, j := range []int{1, 2, 3, 4} {
 			require.Contains(t, res, j)
+		}
+	})
+}
+
+func TestMergeCount(t *testing.T) {
+	f := MergeCount()
+	t.Run("merge sums two numbers", func(t *testing.T) {
+		n, err := f(nil, 1, 2)
+		require.NoError(t, err)
+		require.Equal(t, 3, n)
+	})
+	t.Run("merge sums a nil with number", func(t *testing.T) {
+		n, err := f(nil, nil, 2)
+		require.NoError(t, err)
+		require.Equal(t, 2, n)
+	})
+}
+
+func TestMapWindowedSlice(t *testing.T) {
+	f := MapWindowedSlice[int]()
+
+	t.Run("mapper ", func(t *testing.T) {
+		for result := range rxgo.Range(1, 100).
+			WindowWithCount(3).
+			Map(f).
+			Observe() {
+			require.NotNil(t, result)
+			require.IsType(t, make([]int, 0), result.V)
+			values := result.V.([]int)
+			require.NotEmpty(t, values)
 		}
 	})
 }
