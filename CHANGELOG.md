@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/state303/go-discogs/compare/v1.1.4...v1.1.5) (2024-02-10)
+
+
+### Bug Fixes
+
+* releases and masters will not contain empty genre, style entry ([60c59b5](https://github.com/state303/go-discogs/commit/60c59b5e4d4814c015e6c71087ee5fec2125bfeb))
+
 ## [1.1.4](https://github.com/state303/go-discogs/compare/v1.1.3...v1.1.4) (2024-02-10)
 
 
