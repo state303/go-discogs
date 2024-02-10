@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/state303/go-discogs/compare/v1.1.2...v1.1.3) (2024-02-10)
+
+
+### Bug Fixes
+
+* **dep:** replace to new checksum ([8251672](https://github.com/state303/go-discogs/commit/825167271dc7500a9e5bf4246bcbcc58acd7f400))
+
 ## [1.1.2](https://github.com/state303/go-discogs/compare/v1.1.1...v1.1.2) (2022-12-27)
 
 
