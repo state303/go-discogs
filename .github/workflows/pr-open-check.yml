@@ -30,6 +30,6 @@ jobs:
       - name: 📝 Check code style
         run: gofmt -d -s -w .
       - run: go mod tidy
-      - run: go clean -testcache ./...
+      - run: go clean ./...
       - name: 🔬 Test Go with coverage
         run: go test -coverprofile=coverage.out ./... ; go tool cover -func=coverage.out
