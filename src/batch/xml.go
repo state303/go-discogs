@@ -345,7 +345,9 @@ type XmlReleaseRelation struct {
 func (r *XmlReleaseRelation) GetGenres() []*model.Genre {
 	genres := make([]*model.Genre, 0)
 	for _, v := range unique.Slice(r.Genres) {
-		genres = append(genres, &model.Genre{Name: v})
+		if v = strings.TrimSpace(v); len(v) > 0 {
+			genres = append(genres, &model.Genre{Name: v})
+		}
 	}
 	return genres
 }
@@ -353,7 +355,9 @@ func (r *XmlReleaseRelation) GetGenres() []*model.Genre {
 func (r *XmlReleaseRelation) GetStyles() []*model.Style {
 	styles := make([]*model.Style, 0)
 	for _, v := range unique.Slice(r.Styles) {
-		styles = append(styles, &model.Style{Name: v})
+		if v = strings.TrimSpace(v); len(v) > 0 {
+			styles = append(styles, &model.Style{Name: v})
+		}
 	}
 	return styles
 }

@@ -47,3 +47,32 @@ func TestReleaseRelationRead(t *testing.T) {
 	}
 	require.Len(t, s, 3)
 }
+
+func TestReleaseRelationStrTim(t *testing.T) {
+	emptyStr := "     "
+	rel := XmlReleaseRelation{
+		ID:                0,
+		Title:             &emptyStr,
+		Country:           &emptyStr,
+		DataQuality:       &emptyStr,
+		ListedReleaseDate: nil,
+		Notes:             &emptyStr,
+		MasterInfo:        XmlReleaseMasterInfo{},
+		Status:            nil,
+		Artists:           nil,
+		Labels:            nil,
+		CreditedArtists:   nil,
+		Formats:           nil,
+		Genres:            []string{"   ", ""},
+		Styles:            []string{"   ", ""},
+	}
+
+	require.Len(t, rel.GetGenres(), 0, "release must return empty genres slice")
+	require.Len(t, rel.GetStyles(), 0, "release must return empty styles slice")
+
+	releaseObj := rel.GetRelease()
+	require.Nil(t, releaseObj.Title)
+	require.Nil(t, releaseObj.Country)
+	require.Nil(t, releaseObj.DataQuality)
+	require.Nil(t, releaseObj.Notes)
+}
