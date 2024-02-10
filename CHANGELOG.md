@@ -1,3 +1,13 @@
+## [1.1.3](https://github.com/state303/go-discogs/compare/v1.1.2...v1.1.3) (2024-02-10)
+
+
+### Bug Fixes
+
+* **dep:** replace to new checksum ([8251672](https://github.com/state303/go-discogs/commit/825167271dc7500a9e5bf4246bcbcc58acd7f400))
+* release item not to contain an empty str field ([72cbcfb](https://github.com/state303/go-discogs/commit/72cbcfb81a67b801f8667372ee8816a48f91a7b5))
+* releases and masters will not contain empty genre, style entry ([60c59b5](https://github.com/state303/go-discogs/commit/60c59b5e4d4814c015e6c71087ee5fec2125bfeb))
+* removes redundant ctx reference ([b823bcc](https://github.com/state303/go-discogs/commit/b823bcc976f432f76ce64a7d5de04c3d0001a19b))
+
 ## [1.1.5](https://github.com/state303/go-discogs/compare/v1.1.4...v1.1.5) (2024-02-10)
 
 
