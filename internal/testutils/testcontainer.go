@@ -3,7 +3,7 @@ package testutils
 import (
 	"context"
 	"fmt"
-	"github.com/testcontainers/testcontainers-go"
+	testcontainers "github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 	"strconv"
 	"time"
@@ -104,16 +104,12 @@ func setupPostgres() Database {
 			"POSTGRES_USER":     "postgres",
 		},
 		ExposedPorts: []string{"5432/tcp"},
-		Mounts: testcontainers.Mounts(testcontainers.ContainerMount{
-			Source:   testcontainers.GenericBindMountSource{HostPath: mountFrom},
-			Target:   testcontainers.ContainerMountTarget(mountTo),
-			ReadOnly: false,
-		}),
+		Files:        []testcontainers.ContainerFile{{HostFilePath: mountFrom, ContainerFilePath: mountTo, FileMode: 0444}},
 		WaitingFor: wait.ForAll(
 			wait.ForLog(postgresWaitLog),
 			wait.ForExposedPort().WithStartupTimeout(time.Second*180),
 			wait.ForListeningPort("5432/tcp").WithStartupTimeout(10*time.Second),
-		).WithStartupTimeout(time.Second * 120),
+		).WithDeadline(time.Second * 120),
 	}
 	dbContainer, err := testcontainers.GenericContainer(
 		context.Background(),

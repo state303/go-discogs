@@ -21,10 +21,10 @@ func (s *DataRepoSuite) Prepare() {
 	if database.DB == nil {
 		dbInfo := testutils.GetDatabase(testutils.Postgres)
 		require.NoError(s.T(), database.Connect(testutils.GetDsn(testutils.Postgres, dbInfo)))
+		s.DB = database.DB
+		s.DB.Logger.LogMode(3)
+		s.repo = NewDataRepository(s.DB)
 	}
-	s.DB = database.DB
-	s.DB.Logger.LogMode(3)
-	s.repo = NewDataRepository(s.DB)
 }
 
 func TestInit(t *testing.T) {
