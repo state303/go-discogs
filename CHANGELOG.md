@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/state303/go-discogs/compare/v1.1.3...v1.1.4) (2024-02-10)
+
+
+### Bug Fixes
+
+* release item not to contain an empty str field ([72cbcfb](https://github.com/state303/go-discogs/commit/72cbcfb81a67b801f8667372ee8816a48f91a7b5))
+
 ## [1.1.3](https://github.com/state303/go-discogs/compare/v1.1.2...v1.1.3) (2024-02-10)
 
 
