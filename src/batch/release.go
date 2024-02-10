@@ -9,6 +9,7 @@ import (
 	"github.com/state303/go-discogs/src/result"
 	"github.com/state303/go-discogs/src/unique"
 	"gorm.io/gorm/clause"
+	"strings"
 	"sync"
 )
 
@@ -131,6 +132,9 @@ func doInsertReleases(order Order, res chan result.Result, wg *sync.WaitGroup) f
 func filterGenres(genres []*model.Genre) []*model.Genre {
 	r := make([]*model.Genre, 0)
 	for _, v := range unique.Slice(genres) {
+		if name := strings.TrimSpace(v.Name); len(name) == 0 {
+			continue
+		}
 		if _, ok := cache.GenreCache.Load(v); !ok {
 			r = append(r, v)
 		}
@@ -141,6 +145,9 @@ func filterGenres(genres []*model.Genre) []*model.Genre {
 func filterStyles(styles []*model.Style) []*model.Style {
 	r := make([]*model.Style, 0)
 	for _, v := range unique.Slice(styles) {
+		if name := strings.TrimSpace(v.Name); len(name) == 0 {
+			continue
+		}
 		if _, ok := cache.StyleCache.Load(v); !ok {
 			r = append(r, v)
 		}
