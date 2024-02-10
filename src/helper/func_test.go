@@ -73,3 +73,23 @@ func TestMapWindowedSlice(t *testing.T) {
 		}
 	})
 }
+
+func TestFilterStr(t *testing.T) {
+	t.Run("filter str must return nil given item is nil", func(t *testing.T) {
+		require.Nil(t, FilterStr(nil))
+	})
+	t.Run("filter str must return nil given item is empty str", func(t *testing.T) {
+		testStr := "     "
+		require.Nil(t, FilterStr(&testStr))
+		testStr = ""
+		require.Nil(t, FilterStr(&testStr))
+	})
+	t.Run("filter str must return trimmed result", func(t *testing.T) {
+		testStr := " hello world "
+		result := FilterStr(&testStr)
+		require.Equal(t, "hello world", *result)
+		testStr = "hello world"
+		result = FilterStr(&testStr)
+		require.Equal(t, "hello world", *result)
+	})
+}

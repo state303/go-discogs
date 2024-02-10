@@ -27,10 +27,10 @@ type XmlArtist struct {
 func (a *XmlArtist) Transform() rxgo.Observable {
 	return rxgo.Just(&model.Artist{
 		ID:          a.ID,
-		DataQuality: a.DataQuality,
-		Name:        a.Name,
-		Profile:     a.Profile,
-		RealName:    a.RealName,
+		DataQuality: helper.FilterStr(a.DataQuality),
+		Name:        helper.FilterStr(a.Name),
+		Profile:     helper.FilterStr(a.Profile),
+		RealName:    helper.FilterStr(a.RealName),
 	})()
 }
 
@@ -45,7 +45,9 @@ type XmlArtistRelation struct {
 func (a *XmlArtistRelation) GetUrls() []*model.ArtistURL {
 	slice := make([]*model.ArtistURL, 0)
 	for _, url := range a.Urls {
-		slice = append(slice, &model.ArtistURL{ArtistID: a.ID, URLHash: int64(helper.Fnv32Str(url)), URL: url})
+		if url = strings.TrimSpace(url); len(url) > 0 {
+			slice = append(slice, &model.ArtistURL{ArtistID: a.ID, URLHash: int64(helper.Fnv32Str(url)), URL: url})
+		}
 	}
 	return unique.Slice(slice)
 }
@@ -53,7 +55,9 @@ func (a *XmlArtistRelation) GetUrls() []*model.ArtistURL {
 func (a *XmlArtistRelation) GetNameVars() []*model.ArtistNameVariation {
 	slice := make([]*model.ArtistNameVariation, 0)
 	for _, nameVar := range a.NameVars {
-		slice = append(slice, &model.ArtistNameVariation{ArtistID: a.ID, NameVariation: nameVar, NameVariationHash: int64(helper.Fnv32Str(nameVar))})
+		if nameVar = strings.TrimSpace(nameVar); len(nameVar) > 0 {
+			slice = append(slice, &model.ArtistNameVariation{ArtistID: a.ID, NameVariation: nameVar, NameVariationHash: int64(helper.Fnv32Str(nameVar))})
+		}
 	}
 	return unique.Slice(slice)
 }
@@ -162,7 +166,9 @@ type XmlVideo struct {
 func (m *XmlMasterRelation) GetStyles() []*model.Style {
 	s := make([]*model.Style, 0)
 	for _, style := range unique.Slice(m.Styles) {
-		s = append(s, &model.Style{Name: style})
+		if style = strings.TrimSpace(style); len(style) > 0 {
+			s = append(s, &model.Style{Name: style})
+		}
 	}
 	return s
 }
@@ -170,7 +176,9 @@ func (m *XmlMasterRelation) GetStyles() []*model.Style {
 func (m *XmlMasterRelation) GetGenres() []*model.Genre {
 	g := make([]*model.Genre, 0)
 	for _, genre := range unique.Slice(m.Genres) {
-		g = append(g, &model.Genre{Name: genre})
+		if genre = strings.TrimSpace(genre); len(genre) > 0 {
+			g = append(g, &model.Genre{Name: genre})
+		}
 	}
 	return g
 }
@@ -265,17 +273,17 @@ func (m *XmlRelease) Transform() rxgo.Observable {
 
 	return rxgo.Just(&model.Release{
 		ID:                m.ID,
-		Title:             m.Title,
-		Country:           m.Country,
-		DataQuality:       m.DataQuality,
+		Title:             helper.FilterStr(m.Title),
+		Country:           helper.FilterStr(m.Country),
+		DataQuality:       helper.FilterStr(m.DataQuality),
 		ReleasedYear:      year,
 		ReleasedMonth:     month,
 		ReleasedDay:       day,
 		ListedReleaseDate: m.ListedReleaseDate,
 		IsMaster:          &m.MasterInfo.IsMaster,
 		MasterID:          masterID,
-		Notes:             m.Notes,
-		Status:            m.Status,
+		Notes:             helper.FilterStr(m.Notes),
+		Status:            helper.FilterStr(m.Status),
 	})()
 }
 
@@ -363,17 +371,17 @@ func (r *XmlReleaseRelation) GetRelease() *model.Release {
 	}
 	return &model.Release{
 		ID:                r.ID,
-		Title:             r.Title,
-		Country:           r.Country,
-		DataQuality:       r.DataQuality,
+		Title:             helper.FilterStr(r.Title),
+		Country:           helper.FilterStr(r.Country),
+		DataQuality:       helper.FilterStr(r.DataQuality),
 		ReleasedYear:      year,
 		ReleasedMonth:     month,
 		ReleasedDay:       day,
 		ListedReleaseDate: r.ListedReleaseDate,
 		IsMaster:          &r.MasterInfo.IsMaster,
 		MasterID:          masterID,
-		Notes:             r.Notes,
-		Status:            r.Status,
+		Notes:             helper.FilterStr(r.Notes),
+		Status:            helper.FilterStr(r.Status),
 	}
 }
 
@@ -402,6 +410,9 @@ func (r *XmlReleaseRelation) GetContracts() []*model.ReleaseContract {
 func (r *XmlReleaseRelation) GetVideos() []*model.ReleaseVideo {
 	items := make([]*model.ReleaseVideo, 0)
 	for _, vid := range r.Videos {
+		if len(vid.URL) == 0 {
+			continue
+		}
 		items = append(items, &model.ReleaseVideo{
 			ReleaseID:   r.ID,
 			Description: vid.Description,

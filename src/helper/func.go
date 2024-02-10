@@ -3,6 +3,7 @@ package helper
 import (
 	"context"
 	"github.com/reactivex/rxgo/v2"
+	"strings"
 )
 
 func SliceMapper[T any]() func(_ context.Context, i interface{}) (interface{}, error) {
@@ -39,5 +40,17 @@ func MapWindowedSlice[T any]() func(_ context.Context, i interface{}) (interface
 			items = append(items, item.V.(T))
 		}
 		return items, nil
+	}
+}
+
+func FilterStr(s *string) *string {
+	if s == nil {
+		return nil
+	}
+	tmp := strings.TrimSpace(*s)
+	if len(tmp) == 0 {
+		return nil
+	} else {
+		return &tmp
 	}
 }

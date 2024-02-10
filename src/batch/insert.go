@@ -23,9 +23,10 @@ func InsertSimple[F, T any](order Order, topic string, localName string) result.
 		Observe(rxgo.WithCPUPool())
 	if res.E != nil {
 		return result.NewResult(0, res.E)
+	} else {
+		fmt.Printf("\nUpdated %+v %+v\n", res.V.(int), topic)
+		return result.NewResult(res.V.(int), nil)
 	}
-	fmt.Printf("\nUpdated %+v %+v\n", res.V.(int), topic)
-	return result.NewResult(res.V.(int), res.E)
 }
 
 func registerCache(_ context.Context, i interface{}) (interface{}, error) {
