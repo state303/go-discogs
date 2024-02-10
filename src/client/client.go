@@ -23,7 +23,7 @@ type clientImpl struct {
 	wc httpClient
 }
 
-func (c *clientImpl) Get(ctx context.Context, uri string) rxgo.Observable {
+func (c *clientImpl) Get(_ context.Context, uri string) rxgo.Observable {
 	return rxgo.Just(uri)().
 		Map(func(ct context.Context, i interface{}) (interface{}, error) {
 			withContext, _ := http.NewRequestWithContext(ct, http.MethodGet, uri, nil)
